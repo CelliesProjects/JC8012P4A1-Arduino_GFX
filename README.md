@@ -34,7 +34,7 @@ This project demonstrates how to bring up the JD9365-based MIPI DSI display and 
 
 1. Clone this repo and open in PlatformIO
 2. Copy-paste and adjust the following code into a new file `src/secrets.hpp`.  
-```
+```c++
 #pragma once
 
 constexpr const char SSID[] = "network name";
@@ -53,13 +53,3 @@ constexpr const char PSK[] = "network password";
 - [ ] Add double buffering or frame sync to reduce tearing
 - [ ] Integrate camera (if supported)
 - [ ] Optional: Add LVGL support with input & widgets
-
-## 📸 Screenshots
-
-Coming soon!
-
----
-
-**License:** MIT  
-**Author:** [Your Name]
-
