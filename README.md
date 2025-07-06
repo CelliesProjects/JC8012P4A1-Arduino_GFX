@@ -33,7 +33,13 @@ This project demonstrates how to bring up the JD9365-based MIPI DSI display and 
 ## 🚀 Setup
 
 1. Clone this repo and open in PlatformIO
-2. Make sure you're using **Arduino-ESP32 core ≥ 3.0**
+2. Copy-paste and adjust the following code into a new file `src/secrets.hpp`.  
+```
+#pragma once
+
+constexpr const char SSID[] = "network name";
+constexpr const char PSK[] = "network password";
+```
 3. Upload to the board — you should see the screen light up and respond to touch
 
 ## 🧱 Libraries Used
