@@ -11,7 +11,11 @@
 #define TP_RST 22
 #define TP_INT 21
 
+const int rotation = 0;
+
 /// see https://github.com/moononournation/Arduino_GFX/blob/master/examples/PDQgraphicstest/Arduino_GFX_dev_device.h
+
+// https://docs.espressif.com/projects/esp-iot-solution/en/latest/display/lcd/lcd_screen_tearing.html
 
 Arduino_ESP32DSIPanel *dsipanel = new Arduino_ESP32DSIPanel(
     20 /* hsync_pulse_width */,
@@ -26,7 +30,7 @@ Arduino_DSI_Display *gfx = new Arduino_DSI_Display(
     800 /* width */,
     1280 /* height */,
     dsipanel,
-    0 /* rotation */,
+    rotation /* rotation */,
     true /* auto_flush */,
     27 /* RST */,
     jd9365_init_operations, sizeof(jd9365_init_operations) / sizeof(lcd_init_cmd_t));
@@ -36,10 +40,7 @@ gsl3680_touch touch(TP_I2C_SDA, TP_I2C_SCL, TP_RST, TP_INT);
 void setup()
 {
     Serial.begin(115200);
-
     WiFi.begin(SSID, PSK);
-
-    const int rotation = 0;
 
     if (!gfx->begin())
     {
@@ -50,7 +51,6 @@ void setup()
 
     log_i("Display initialized");
 
-    gfx->setRotation(rotation);
     gfx->setCursor(10, 10);
     gfx->setFont();
     gfx->setTextSize(1);
@@ -78,8 +78,8 @@ void setup()
 
     log_i("WiFi waiting for %s", SSID);
 
-    while (!WiFi.isConnected())
-        delay(10);
+    // while (!WiFi.isConnected())
+    // delay(10);
 
     log_i("entering loop");
 }
