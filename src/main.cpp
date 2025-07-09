@@ -1,4 +1,4 @@
-#include <WiFi.h>
+//#include <WiFi.h>
 
 #include <Arduino_GFX_Library.h>
 
@@ -40,7 +40,7 @@ gsl3680_touch touch(TP_I2C_SDA, TP_I2C_SCL, TP_RST, TP_INT);
 void setup()
 {
     Serial.begin(115200);
-    WiFi.begin(SSID, PSK);
+    //WiFi.begin(SSID, PSK);
 
     if (!gfx->begin())
     {
