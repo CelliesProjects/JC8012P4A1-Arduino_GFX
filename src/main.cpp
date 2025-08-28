@@ -4,7 +4,7 @@
 
 #include "touch/gsl3680_touch.h"
 #include "touch/esp_lcd_touch.h"
-#include "secrets.hpp"
+//#include "secrets.hpp" // untracked file containing Wifi SSID and PSK
 
 #define TP_I2C_SDA 7
 #define TP_I2C_SCL 8
@@ -76,7 +76,7 @@ void setup()
             delay(1000);
     }
 
-    log_i("WiFi waiting for %s", SSID);
+    //log_i("WiFi waiting for %s", SSID);
 
     // while (!WiFi.isConnected())
     // delay(10);
