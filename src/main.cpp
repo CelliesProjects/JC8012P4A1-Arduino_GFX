@@ -1,11 +1,12 @@
-//#include <WiFi.h>
+// #include <WiFi.h>
 
 #include <Arduino_GFX_Library.h>
 #include "Arduino_GFX_dev_device.h"
+#include "DejaVu40-modded.h"
 
 #include "touch/gsl3680_touch.h"
 #include "touch/esp_lcd_touch.h"
-//#include "secrets.hpp" // untracked file containing Wifi SSID and PSK
+// #include "secrets.hpp" // untracked file containing Wifi SSID and PSK
 
 #define TP_I2C_SDA 7
 #define TP_I2C_SCL 8
@@ -21,7 +22,7 @@ gsl3680_touch touch(TP_I2C_SDA, TP_I2C_SCL, TP_RST, TP_INT);
 void setup()
 {
     Serial.begin(115200);
-    //WiFi.begin(SSID, PSK);
+    // WiFi.begin(SSID, PSK);
 
     if (!gfx->begin())
     {
@@ -32,16 +33,20 @@ void setup()
 
     Serial.println("Display initialized");
 
-    gfx->setCursor(10, 10);
-    gfx->setFont();
+    gfx->setFont(&DejaVu40Modded);
     gfx->setTextSize(1);
-    gfx->print("Hello world!");
+    String str = "Hello world from JC8012P4A1!";
+    int16_t x, y, x1, y1;
+    uint16_t w, h;
+    gfx->getTextBounds(str, x, y, &x1, &y1, &w, &h);
+    gfx->setCursor((gfx->width() / 2 - (w / 2)), (gfx->height() / 2) - (h / 2));
+    gfx->print(str);
 
     touch.begin();
     touch.set_rotation(rotation);
 
     constexpr int BIT_DEPTH = 14;
-    constexpr int MAX_PWM_VAL = 1 << BIT_DEPTH;
+    constexpr int MAX_PWM_VAL = (1 << BIT_DEPTH) - 1;
     if (!ledcAttachChannel(GFX_BL, 1220, BIT_DEPTH, 0))
     {
         Serial.printf("Error setting ledc pin %i. system halted", index);
@@ -56,7 +61,7 @@ void setup()
             delay(1000);
     }
 
-    //Serial.printf("WiFi waiting for %s\n", SSID);
+    // Serial.printf("WiFi waiting for %s\n", SSID);
 
     // while (!WiFi.isConnected())
     // delay(10);
@@ -67,7 +72,7 @@ void setup()
 void loop()
 {
     uint16_t x, y;
-    if (touch.getTouch(&x, &y))
+    while (touch.getTouch(&x, &y))
     {
         gfx->fillCircle(x, y, 10, RED);
     }
